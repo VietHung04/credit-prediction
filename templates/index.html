@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>Dự đoán Rủi ro Tín dụng</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 420px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0f62fe;
+    }
+    .field {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #0f62fe;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0046c0;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .high {
+      background: #ffe5e5;
+      color: #c40000;
+    }
+    .low {
+      background: #e5fff2;
+      color: #007a3d;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Dự đoán Rủi ro</h2>
+    <form method="POST">
+      <div class="field">
+        <label>Tuổi</label>
+        <input type="number" name="age" placeholder="VD: 35" required>
+      </div>
+      <div class="field">
+        <label>Thu nhập hàng tháng (VNĐ)</label>
+        <input type="number" name="income" placeholder="VD: 10000000" required>
+      </div>
+      <div class="field">
+        <label>Số lần trả chậm 30-59 ngày</label>
+        <input type="number" name="late_30" placeholder="VD: 1" required>
+      </div>
+      <div class="field">
+        <label>Số lần trả chậm 90 ngày trở lên</label>
+        <input type="number" name="late_90" placeholder="VD: 0" required>
+      </div>
+      <div class="field">
+        <label>Tỷ lệ nợ / thu nhập</label>
+        <input type="number" step="0.01" name="debt_ratio" placeholder="VD: 0.45" required>
+      </div>
+      <div class="field">
+        <label>Số người phụ thuộc</label>
+        <input type="number" name="dependents" placeholder="VD: 2" required>
+      </div>
+      <button type="submit">Dự đoán</button>
+    </form>
+
+    {% if result %}
+      <div class="result {{ 'high' if 'cao' in result else 'low' }}">
+        {{ result }}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
